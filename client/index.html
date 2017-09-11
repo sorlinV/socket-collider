@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Socket.IO mouse</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        li {
+            background: red;
+            height: 50px;
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <pre>
+        z: up
+        s: down
+        q: left
+        d: right
+    </pre>
+    <ul id="messages"></ul>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        let control = {
+            forw: false,
+            back: false,
+            left: false,
+            right: false
+        }
+
+        document.body.addEventListener("keydown", function(e) {
+            if (e.key === 'z') {
+                control.forw = true;
+            } else if (e.key === 's') {
+                control.back = true;
+            } else if (e.key === 'q') {
+                control.left = true;
+            } else if (e.key === 'd') {
+                control.right = true;
+            }
+        });
+
+        document.body.addEventListener("keyup", function(e) {
+            if (e.key === 'z') {
+                control.forw = false;
+            } else if (e.key === 's') {
+                control.back = false;
+            } else if (e.key === 'q') {
+                control.left = false;
+            } else if (e.key === 'd') {
+                control.right = false;
+            }
+        });
+
+        socket.emit('move', 'none');
+        setInterval(function() {
+            console.log(control);
+            if (control.forw === true) {
+                socket.emit('move', 'up');
+            }
+            if (control.back === true) {
+                socket.emit('move', 'down');
+            }
+            if (control.left === true) {
+                socket.emit('move', 'left');
+            }
+            if (control.right === true) {
+                socket.emit('move', 'right');
+            }
+        }, 10);
+
+        socket.on('users', function(users) {
+            document.querySelector('#messages').innerHTML = "";
+            for (let u of users) {
+                document.querySelector('#messages').innerHTML +=
+                    '<li style="position: absolute;top: ' + u.y + 'px; left: ' + u.x + 'px">' + u.ip + '</li>';
+            }
+        });
+    </script>
+</body>
+
+</html>

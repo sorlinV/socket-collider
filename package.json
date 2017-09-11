@@ -1,0 +1,24 @@
+{
+  "name": "chat-socket.io",
+  "version": "0.0.0",
+  "description": "chat with socket.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sorlinV/chat-socket.io.git"
+  },
+  "author": "sorlinV <valentin.sorlin@hotmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sorlinV/chat-socket.io/issues"
+  },
+  "homepage": "https://github.com/sorlinV/chat-socket.io#readme",
+  "dependencies": {
+    "express": "^4.15.2",
+    "path": "^0.12.7",
+    "socket.io": "^2.0.3"
+  }
+}

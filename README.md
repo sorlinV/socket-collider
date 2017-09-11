@@ -1,2 +1,2 @@
-# socket-collider
-mini game with socket and collition
+# chat-socket.io
+chat with socket.io
