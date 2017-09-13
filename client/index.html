@@ -9,7 +9,13 @@
             width: 100vw;
         }
         
-        li {
+        .blue {
+            background: blue;
+            height: 50px;
+            width: 50px;
+        }
+        
+        .red {
             background: red;
             height: 50px;
             width: 50px;
@@ -24,7 +30,8 @@
         q: left
         d: right
     </pre>
-    <ul id="messages"></ul>
+    <ul id="users"></ul>
+    <ul id="map"></ul>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
@@ -61,7 +68,6 @@
 
         socket.emit('move', 'none');
         setInterval(function() {
-            console.log(control);
             if (control.forw === true) {
                 socket.emit('move', 'up');
             }
@@ -76,11 +82,19 @@
             }
         }, 10);
 
+        socket.on('map', function(map) {
+            console.log(map);
+            document.querySelector('#map').innerHTML = "";
+            for (let u of map) {
+                document.querySelector('#map').innerHTML +=
+                    '<li class="blue" style="position: absolute;top: ' + u.y + 'px; left: ' + u.x + 'px">' + u.ip + '</li>';
+            }
+        });
         socket.on('users', function(users) {
-            document.querySelector('#messages').innerHTML = "";
+            document.querySelector('#users').innerHTML = "";
             for (let u of users) {
-                document.querySelector('#messages').innerHTML +=
-                    '<li style="position: absolute;top: ' + u.y + 'px; left: ' + u.x + 'px">' + u.ip + '</li>';
+                document.querySelector('#users').innerHTML +=
+                    '<li class="red" style="position: absolute;top: ' + u.y + 'px; left: ' + u.x + 'px">' + u.ip + '</li>';
             }
         });
     </script>
