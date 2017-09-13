@@ -1,10 +1,14 @@
 import * as express from 'express';
 import * as path from 'path';
 import {User} from './User';
-import * as io from 'socket.io';
+import * as sio from "socket.io";
+import * as http from "http";
+
+let httpServer = http.createServer();
+let io = sio(httpServer, { transports: [ "websocket" ] });
+let app = express();
 //import http = require('http').Server(app);
 //let http = require('http').Server(app);
-let app = express();
 let users = [];
 let map = [new User("0", 100, 100, "dmg")];
 app.get('/', function(req, res) {
@@ -65,6 +69,6 @@ io.on('connection', function(socket) {
     });
 });
 
-http.listen(3001, function() {
-    console.log('listening on *:3000');
+httpServer.listen(3001, function() {
+    console.log('listening on *:3001');
 });
