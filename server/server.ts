@@ -1,10 +1,12 @@
-import * as app from 'express';
+import * as express from 'express';
 import * as path from 'path';
 import {User} from './User';
-import * as io from 'socket.io'
-
-let users:User[] = [];
-let map:User[] = [new User("0", 100, 100, "dmg")];
+import * as io from 'socket.io';
+//import http = require('http').Server(app);
+//let http = require('http').Server(app);
+let app = express();
+let users = [];
+let map = [new User("0", 100, 100, "dmg")];
 app.get('/', function(req, res) {
     res.sendfile(path.join('..', '/client/'));
 });

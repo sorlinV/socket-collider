@@ -37,13 +37,13 @@ export class User {
 
     next_pos(speed, dir) {
         if (dir === "up") {
-            return new Object(this.ip, this.x, this.y - speed, this.type);
+            return new User(this.ip, this.x, this.y - speed, this.type);
         } else if (dir === "down") {
-            return new Object(this.ip, this.x, this.y + speed, this.type);
+            return new User(this.ip, this.x, this.y + speed, this.type);
         } else if (dir === "left") {
-            return new Object(this.ip, this.x - speed, this.y, this.type);
+            return new User(this.ip, this.x - speed, this.y, this.type);
         } else if (dir === "right") {
-            return new Object(this.ip, this.x + speed, this.y, this.type);
+            return new User(this.ip, this.x + speed, this.y, this.type);
         }
     }
 
